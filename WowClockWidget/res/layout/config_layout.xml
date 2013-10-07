@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:background="@drawable/abs__dialog_full_holo_light"
+             android:paddingBottom="5dp"
+            android:orientation="vertical" >
+
+            <com.viewpagerindicator.LinePageIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                app:lineWidth="20dp"
+                app:selectedColor="@color/d_honest"
+                app:strokeWidth="3dp"
+                app:unselectedColor="#FF888888" />
+
+            <RelativeLayout
+                android:id="@+id/previewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <ImageView
+                    android:id="@+id/imgBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="center" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+        
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp" >
+                </android.support.v4.view.ViewPager>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                   
+                    android:background="@drawable/abs__dialog_full_holo_light"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="Hands Color" />
+
+                    <LinearLayout
+                        android:id="@+id/handsColorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/abs__dialog_full_holo_light"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="40dp"
+                            android:layout_weight="0.14"
+                            android:background="@color/a_karbon_phiber" />
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.14"
+                            android:background="@color/b_de_noll" />
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.14"
+                            android:background="@color/c_eubonics" />
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.14"
+                            android:background="@color/d_honest" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/abs__dialog_full_holo_light"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="Dial Color" />
+
+                    <LinearLayout
+                        android:id="@+id/dialColorsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/abs__dialog_full_holo_light"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="40dp"
+                            android:layout_weight="0.14"
+                            android:background="@color/a_karbon_phiber" />
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.14"
+                            android:background="@color/b_de_noll" />
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.14"
+                            android:background="@color/c_eubonics" />
+
+                        <ImageView
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.14"
+                            android:background="@color/d_honest" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="Dial Opacity" />
+
+                    <SeekBar
+                        android:id="@+id/opacitySeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:max="255"
+                        android:progress="255" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

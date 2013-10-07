@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="a_karbon_phiber">#313131</color>
+    <color name="b_de_noll">#D0D0D0</color>
+    <color name="c_eubonics">#F0F0F0</color>
+    <color name="d_honest">#33B5E5</color>
+    
+    <color name="e_viola">#9933CC</color>
+     <color name="f_verde">#669900</color>
+    <color name="g_arancio">#FF8800</color>
+    <color name="h_rosso">#CC0000</color>
+</resources>
