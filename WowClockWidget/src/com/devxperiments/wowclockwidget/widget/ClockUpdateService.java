@@ -21,8 +21,8 @@ public class ClockUpdateService  extends Service{
 
 	Bitmap hourHand;
 	Bitmap minuteHand;
-	static Bitmap secondHand;
-	static int prevTotalMinutes = -1;
+//	static Bitmap secondHand;
+//	static int prevTotalMinutes = -1;
 
 	@Override  
 	public void onCreate(){  

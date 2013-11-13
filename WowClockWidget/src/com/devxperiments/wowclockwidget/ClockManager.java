@@ -52,34 +52,59 @@ public class ClockManager {
 			Hand[] hands;
 			Dial[] dials;
 			
-			hands = new Hand[]{new Hand(R.layout.clock1_layout_a, R.color.a_karbon_phiber),
-					new Hand(R.layout.clock1_layout_b, R.color.b_de_noll),
-					new Hand(R.layout.clock1_layout_c, R.color.c_eubonics),
+			hands = new Hand[]{new Hand(R.layout.clock1_layout_a, R.color.a_karbon),
+					new Hand(R.layout.clock1_layout_b, R.color.b_grigio),
+					new Hand(R.layout.clock1_layout_c, R.color.c_chiaro),
 					new Hand(R.layout.clock1_layout_d, R.color.d_honest)};
-
-			dials = new Dial[]{new Dial(R.drawable.clock1_dial_a, R.color.a_karbon_phiber),
-					new Dial(R.drawable.clock1_dial_b, R.color.b_de_noll),
-					new Dial(R.drawable.clock1_dial_c, R.color.c_eubonics),
-					new Dial(R.drawable.clock1_dial_d, R.color.d_honest)};
-			
+			dials = new Dial[]{new Dial(R.drawable.clock3_dial_a, R.color.a_karbon),
+					new Dial(R.drawable.clock3_dial_b, R.color.b_grigio),
+					new Dial(R.drawable.clock3_dial_c, R.color.c_chiaro),
+					new Dial(R.drawable.clock3_dial_d, R.color.d_honest),
+					new Dial(R.drawable.clock3_dial_e, R.color.e_viola),
+					new Dial(R.drawable.clock3_dial_f, R.color.f_verde),
+					new Dial(R.drawable.clock3_dial_g, R.color.g_giallo),
+					new Dial(R.drawable.clock3_dial_h, R.color.h_arancio),
+					new Dial(R.drawable.clock3_dial_i, R.color.i_rosso)};
 			c = new SimpleClock(hands, dials);
 			c.setCurrentHandIndex(3);
-
 			availableClocks.add(c);
+			
 			
 			hands = new Hand[]{new Hand(R.layout.clock2_layout_a, R.color.d_honest),
 					new Hand(R.layout.clock2_layout_b, R.color.e_viola),
 					new Hand(R.layout.clock2_layout_c, R.color.f_verde),
-					new Hand(R.layout.clock2_layout_d, R.color.g_arancio),
-					new Hand(R.layout.clock2_layout_e, R.color.h_rosso)};
-			
-			dials = new Dial[]{new Dial(R.drawable.clock2_dial_a, R.color.a_karbon_phiber),
-					new Dial(R.drawable.clock2_dial_b, R.color.b_de_noll),
-					new Dial(R.drawable.clock2_dial_c, R.color.c_eubonics),
-					new Dial(R.drawable.clock2_dial_d, R.color.d_honest)};
-
+					new Hand(R.layout.clock2_layout_d, R.color.h_arancio),
+					new Hand(R.layout.clock2_layout_e, R.color.i_rosso)};
+//			dials = new Dial[]{new Dial(R.drawable.clock2_dial_a, R.color.a_karbon),
+//					new Dial(R.drawable.clock2_dial_b, R.color.b_grigio),
+//					new Dial(R.drawable.clock2_dial_c, R.color.c_chiaro),
+//					new Dial(R.drawable.clock2_dial_d, R.color.d_honest)};
 			c = new ClockLayout2(hands, dials);
 			c.setToBeUpdated(true);
+			availableClocks.add(c);
+			
+			hands = new Hand[]{//new Hand(R.layout.clock3_layout_a, R.color.a_karbon),
+//					new Hand(R.layout.clock3_layout_b, R.color.b_grigio),
+					new Hand(R.layout.clock3_layout_c, R.color.c_chiaro)//,
+//					new Hand(R.layout.clock3_layout_d, R.color.d_honest)
+					};
+			c = new SimpleClock(hands, dials);
+			availableClocks.add(c);
+			
+			hands = new Hand[]{//new Hand(R.layout.clock4_layout_a, R.color.a_karbon),
+//					new Hand(R.layout.clock4_layout_b, R.color.b_grigio),
+					new Hand(R.layout.clock4_layout_c, R.color.c_chiaro)//,
+//					new Hand(R.layout.clock4_layout_d, R.color.d_honest)
+					};
+			c = new SimpleClock(hands, dials);
+			availableClocks.add(c);
+			
+			hands = new Hand[]{//new Hand(R.layout.clock5_layout_a, R.color.a_karbon),
+//					new Hand(R.layout.clock5_layout_b, R.color.b_grigio),
+					new Hand(R.layout.clock5_layout_c, R.color.c_chiaro)//,
+//					new Hand(R.layout.clock5_layout_d, R.color.d_honest)
+					};
+			c = new SimpleClock(hands, dials);
 			availableClocks.add(c);
 		}
 
