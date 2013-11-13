@@ -93,17 +93,40 @@ public class ClockManager {
 					new Hand(R.layout.clock_hands_large_h, R.color.h_arancio),
 					new Hand(R.layout.clock_hands_large_i, R.color.i_rosso)};
 			
-			Hand[] preciseHands = new Hand[]{//new Hand(R.layout.clock4_layout_a, R.color.a_karbon),
-//					new Hand(R.layout.clock4_layout_b, R.color.b_grigio),
-					new Hand(R.layout.clock_hands_precise_c, R.color.c_chiaro)//,
-//					new Hand(R.layout.clock4_layout_d, R.color.d_honest)
-					};
+			Hand[] preciseHands = new Hand[]{
+					new Hand(R.layout.clock_hands_precise_a, R.color.a_karbon),
+					new Hand(R.layout.clock_hands_precise_b, R.color.b_grigio),
+					new Hand(R.layout.clock_hands_precise_c, R.color.c_chiaro),
+					new Hand(R.layout.clock_hands_precise_d, R.color.d_honest),
+					new Hand(R.layout.clock_hands_precise_e, R.color.e_viola),
+					new Hand(R.layout.clock_hands_precise_f, R.color.f_verde),
+					new Hand(R.layout.clock_hands_precise_g, R.color.g_giallo),
+					new Hand(R.layout.clock_hands_precise_h, R.color.h_arancio),
+					new Hand(R.layout.clock_hands_precise_i, R.color.i_rosso)};
 			
-			Hand[] arrowHands = new Hand[]{//new Hand(R.layout.clock5_layout_a, R.color.a_karbon),
-//					new Hand(R.layout.clock5_layout_b, R.color.b_grigio),
-					new Hand(R.layout.clock_hands_arrow_c, R.color.c_chiaro)//,
-//					new Hand(R.layout.clock5_layout_d, R.color.d_honest)
-					};
+			Hand[] preciseFloatingHands = new Hand[]{
+					new Hand(R.layout.clock_hands_precisef_a, R.color.a_karbon),
+					new Hand(R.layout.clock_hands_precisef_b, R.color.b_grigio),
+					new Hand(R.layout.clock_hands_precisef_c, R.color.c_chiaro),
+					new Hand(R.layout.clock_hands_precisef_d, R.color.d_honest),
+					new Hand(R.layout.clock_hands_precisef_e, R.color.e_viola),
+					new Hand(R.layout.clock_hands_precisef_f, R.color.f_verde),
+					new Hand(R.layout.clock_hands_precisef_g, R.color.g_giallo),
+					new Hand(R.layout.clock_hands_precisef_h, R.color.h_arancio),
+					new Hand(R.layout.clock_hands_precisef_i, R.color.i_rosso)};
+			
+			Hand[] arrowHands = new Hand[]{
+					new Hand(R.layout.clock_hands_arrow_a, R.color.a_karbon),
+					new Hand(R.layout.clock_hands_arrow_b, R.color.b_grigio),
+					new Hand(R.layout.clock_hands_arrow_c, R.color.c_chiaro),
+					new Hand(R.layout.clock_hands_arrow_d, R.color.d_honest),
+					new Hand(R.layout.clock_hands_arrow_e, R.color.e_viola),
+					new Hand(R.layout.clock_hands_arrow_f, R.color.f_verde),
+					new Hand(R.layout.clock_hands_arrow_g, R.color.g_giallo),
+					new Hand(R.layout.clock_hands_arrow_h, R.color.h_arancio),
+					new Hand(R.layout.clock_hands_arrow_i, R.color.i_rosso)};
+			
+			
 			
 			
 			int[] ringOverlays = new int[]{R.drawable.clk_overlay_ring_a,
@@ -135,6 +158,17 @@ public class ClockManager {
 					R.drawable.clk_overlay_dots_g,
 					R.drawable.clk_overlay_dots_h,
 					R.drawable.clk_overlay_dots_i};
+			
+			int[] preciseOverlays =  new int[] {
+					R.drawable.clk_overlay_precise_a,
+					R.drawable.clk_overlay_precise_b,
+					R.drawable.clk_overlay_precise_c,
+					R.drawable.clk_overlay_precise_d,
+					R.drawable.clk_overlay_precise_e,
+					R.drawable.clk_overlay_precise_f,
+					R.drawable.clk_overlay_precise_g,
+					R.drawable.clk_overlay_precise_h,
+					R.drawable.clk_overlay_precise_i};
 			 
 			Clock c;
 			
@@ -142,30 +176,116 @@ public class ClockManager {
 //			c.setCurrentHandIndex(3);
 //			availableClocks.add(c);
 			
+			// 1
 			c = new SimpleClock(largeHands, backgrounds);
 			c.setCurrentDialIndex(8);
 			c.setCurrentHandIndex(2);
 			availableClocks.add(c);
 			
+			// 2
+			c = new SimpleClock(largeHands, backgrounds, ringOverlays);
+			c.setCurrentDialIndex(3);
+			c.setCurrentHandIndex(2);
+			availableClocks.add(c);
+			
+			// 3
 			c = new SimpleClock(thinHands, backgrounds, dotsOverlays);
 			c.setCurrentDialIndex(6);
 			c.setCurrentHandIndex(2);
 			availableClocks.add(c);
 			
-			c = new SimpleClock(arrowHands, backgrounds);
+			// 4
+			c = new SimpleClock(thinHands, backgrounds, arrowOverlays);
+			c.setCurrentDialIndex(7);
+			c.setCurrentHandIndex(0);
 			availableClocks.add(c);
 			
+			// 5
+			c = new SimpleClock(thinHands, backgrounds, preciseOverlays);
+			c.setCurrentDialIndex(3);
+			c.setCurrentHandIndex(0);
+			availableClocks.add(c);
+			
+			// 6
+			c = new SimpleClock(arrowHands, backgrounds, arrowOverlays);
+			c.setCurrentDialIndex(2);
+			c.setCurrentHandIndex(4);
+			availableClocks.add(c);
+			
+			// 7
+			c = new SimpleClock(arrowHands, backgrounds, dotsOverlays);
+			c.setCurrentDialIndex(0);
+			c.setCurrentHandIndex(6);
+			availableClocks.add(c);
+			
+			// 8
+			c = new SimpleClock(arrowHands, backgrounds, preciseOverlays);
+			c.setCurrentDialIndex(5);
+			c.setCurrentHandIndex(0);
+			availableClocks.add(c);
+			
+			// 9
 			c = new ClockLayoutCenterDigital(digitalCutHands, backgrounds, ringOverlays);
+			c.setCurrentDialIndex(0);
 			c.setCurrentHandIndex(3);
 			c.setToBeUpdated(true);
 			availableClocks.add(c);
+			
+			// 10
+			c = new ClockLayoutCenterDigital(digitalCutHands, backgrounds,dotsOverlays);
+			c.setCurrentDialIndex(0);
+			c.setCurrentHandIndex(6);
+			c.setToBeUpdated(true);
+			availableClocks.add(c);
 	
+			// 11
 			c = new ClockLayoutCenterDigital(digitalCutHands, backgrounds,arrowOverlays);
+			c.setCurrentDialIndex(5);
+			c.setCurrentHandIndex(0);
+			c.setToBeUpdated(true);
+			availableClocks.add(c);
+			
+			// 12
+			c = new ClockLayoutCenterDigital(digitalCutHands, backgrounds, preciseOverlays);
+			c.setCurrentDialIndex(0);
 			c.setCurrentHandIndex(5);
 			c.setToBeUpdated(true);
 			availableClocks.add(c);
 			
-			c = new SimpleClock(preciseHands, backgrounds);
+			// 13
+			c = new SimpleClock(preciseFloatingHands, backgrounds, dotsOverlays);
+			c.setCurrentDialIndex(7);
+			c.setCurrentHandIndex(0);
+			availableClocks.add(c);
+			
+			// 14
+			c = new SimpleClock(preciseFloatingHands, backgrounds, arrowOverlays);
+			c.setCurrentDialIndex(0);
+			c.setCurrentHandIndex(4);
+			availableClocks.add(c);
+			
+			// 15
+			c = new SimpleClock(preciseFloatingHands, backgrounds, preciseOverlays);
+			c.setCurrentDialIndex(4);
+			c.setCurrentHandIndex(0);
+			availableClocks.add(c);
+			
+			// 16
+			c = new PreciseClock(preciseHands, backgrounds, dotsOverlays);
+			c.setCurrentDialIndex(6);
+			c.setCurrentHandIndex(0);
+			availableClocks.add(c);
+			
+			// 17
+			c = new PreciseClock(preciseHands, backgrounds, arrowOverlays);
+			c.setCurrentDialIndex(8);
+			c.setCurrentHandIndex(0);
+			availableClocks.add(c);
+			
+			// 18
+			c = new PreciseClock(preciseHands, backgrounds, preciseOverlays);
+			c.setCurrentDialIndex(0);
+			c.setCurrentHandIndex(5);
 			availableClocks.add(c);
 			
 		}

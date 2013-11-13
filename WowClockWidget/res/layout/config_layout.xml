@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dip"
-                app:lineWidth="20dp"
+                
                 app:selectedColor="@color/d_honest"
                 app:strokeWidth="3dp"
                 app:unselectedColor="#FF888888" />
@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:text="Hands Color" />
+                        android:text="@string/strHandsColor" />
 
                     <LinearLayout
                         android:id="@+id/handsColorLayout"
@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:text="Dial Color" />
+                        android:text="@string/strBackColor" />
 
                     <LinearLayout
                         android:id="@+id/dialColorsLayout"
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:text="Dial Opacity" />
+                        android:text="@string/strBackOpacity" />
 
                     <SeekBar
                         android:id="@+id/opacitySeekBar"

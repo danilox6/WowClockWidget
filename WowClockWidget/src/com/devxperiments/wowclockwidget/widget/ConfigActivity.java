@@ -42,8 +42,7 @@ import android.widget.SeekBar;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-public class ConfigActivity extends SherlockFragmentActivity implements
-OnPageChangeListener, OnSeekBarChangeListener {
+public class ConfigActivity extends SherlockFragmentActivity implements OnPageChangeListener, OnSeekBarChangeListener {
 
 	private int appWidgetId;
 
@@ -68,8 +67,7 @@ OnPageChangeListener, OnSeekBarChangeListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setResult(RESULT_CANCELED); // Cosicchè se l'operazione viene annullata,
-		// il widget manager viene notificato
+		setResult(RESULT_CANCELED); // Cosicchè se l'operazione viene annullata, il widget manager viene notificato
 
 		setContentView(R.layout.config_layout);
 
@@ -125,13 +123,12 @@ OnPageChangeListener, OnSeekBarChangeListener {
 		PendingIntent service = PendingIntent.getService(this, 0,
 				serviceIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		alarmManager.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(),
-				1000 * 60, service);
+		alarmManager.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1000 * 60, service);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add("Apply").setIcon(R.drawable.ic_apply)
+		menu.add(R.string.strApply).setIcon(R.drawable.ic_apply)
 		.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return true;
 	}
