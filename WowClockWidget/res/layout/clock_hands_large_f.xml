@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <AnalogClock
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dial="@drawable/transparent"
+        android:hand_hour="@drawable/clk_large_hours_f"
+        android:hand_minute="@drawable/clk_large_minutes_f" >
+    </AnalogClock>
+
+
+</RelativeLayout>

@@ -18,6 +18,10 @@ public class ClockLayoutCenterDigital extends Clock{
 
 	private int[] overlays;
 	
+	public ClockLayoutCenterDigital(Hand[] hands, Dial[] dials){
+		this(hands, dials, null);
+	}
+	
 	public ClockLayoutCenterDigital(Hand[] hands, Dial[] dials, int overlay){
 		this(hands, dials, new int[]{overlay});
 	}

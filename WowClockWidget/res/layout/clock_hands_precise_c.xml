@@ -3,23 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/imgDial"
+    <AnalogClock
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_height="match_parent"
+        android:dial="@drawable/transparent"
+        android:hand_hour="@drawable/clk_arrowp_hours_c"
+        android:hand_minute="@drawable/clk_arrowp_minutes_c" >
+    </AnalogClock>
 
-    <RelativeLayout
-        android:id="@+id/clockContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
- 
     <ImageView
-        android:id="@+id/imgOverlay"
+        android:id="@+id/imgShadow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-       />
+        android:src="@drawable/clk_overlay_center_down" />
 
 </RelativeLayout>
