@@ -7,8 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dial="@drawable/transparent"
-        android:hand_hour="@drawable/clock4_hours_c"
-        android:hand_minute="@drawable/clock4_minutes_c" >
+        android:hand_hour="@drawable/clk_arrowp_hours_c"
+        android:hand_minute="@drawable/clk_arrowp_minutes_c" >
     </AnalogClock>
 
     <ImageView
@@ -16,13 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/clock4_overlay_c" />
+        android:src="@drawable/clk_overlay_precise_c" />
      <ImageView
         android:id="@+id/imgShadow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/clock4_overlay" />
+        android:src="@drawable/clk_overlay_center_down" />
    
 
 </RelativeLayout>
