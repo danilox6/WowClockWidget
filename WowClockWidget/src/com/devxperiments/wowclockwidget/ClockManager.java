@@ -52,19 +52,22 @@ public class ClockManager {
 			Hand[] hands;
 			Dial[] dials;
 			
+			dials = new Dial[]{new Dial(R.drawable.clock_background_a, R.color.a_karbon),
+					new Dial(R.drawable.clock_background_b, R.color.b_grigio),
+					new Dial(R.drawable.clock_background_c, R.color.c_chiaro),
+					new Dial(R.drawable.clock_background_d, R.color.d_honest),
+					new Dial(R.drawable.clock_background_e, R.color.e_viola),
+					new Dial(R.drawable.clock_background_f, R.color.f_verde),
+					new Dial(R.drawable.clock_background_g, R.color.g_giallo),
+					new Dial(R.drawable.clock_background_h, R.color.h_arancio),
+					new Dial(R.drawable.clock_background_i, R.color.i_rosso)};
+			
+			
 			hands = new Hand[]{new Hand(R.layout.clock1_layout_a, R.color.a_karbon),
 					new Hand(R.layout.clock1_layout_b, R.color.b_grigio),
 					new Hand(R.layout.clock1_layout_c, R.color.c_chiaro),
 					new Hand(R.layout.clock1_layout_d, R.color.d_honest)};
-			dials = new Dial[]{new Dial(R.drawable.clock3_dial_a, R.color.a_karbon),
-					new Dial(R.drawable.clock3_dial_b, R.color.b_grigio),
-					new Dial(R.drawable.clock3_dial_c, R.color.c_chiaro),
-					new Dial(R.drawable.clock3_dial_d, R.color.d_honest),
-					new Dial(R.drawable.clock3_dial_e, R.color.e_viola),
-					new Dial(R.drawable.clock3_dial_f, R.color.f_verde),
-					new Dial(R.drawable.clock3_dial_g, R.color.g_giallo),
-					new Dial(R.drawable.clock3_dial_h, R.color.h_arancio),
-					new Dial(R.drawable.clock3_dial_i, R.color.i_rosso)};
+			
 			c = new SimpleClock(hands, dials);
 			c.setCurrentHandIndex(3);
 			availableClocks.add(c);
@@ -75,10 +78,6 @@ public class ClockManager {
 					new Hand(R.layout.clock2_layout_c, R.color.f_verde),
 					new Hand(R.layout.clock2_layout_d, R.color.h_arancio),
 					new Hand(R.layout.clock2_layout_e, R.color.i_rosso)};
-//			dials = new Dial[]{new Dial(R.drawable.clock2_dial_a, R.color.a_karbon),
-//					new Dial(R.drawable.clock2_dial_b, R.color.b_grigio),
-//					new Dial(R.drawable.clock2_dial_c, R.color.c_chiaro),
-//					new Dial(R.drawable.clock2_dial_d, R.color.d_honest)};
 			c = new ClockLayout2(hands, dials);
 			c.setToBeUpdated(true);
 			availableClocks.add(c);
