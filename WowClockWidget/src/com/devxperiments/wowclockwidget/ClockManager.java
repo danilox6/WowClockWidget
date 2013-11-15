@@ -57,10 +57,10 @@ public class ClockManager {
 					new Dial(R.drawable.clk_background_h, R.color.h_arancio),
 					new Dial(R.drawable.clk_background_i, R.color.i_rosso)};
 						
-			Hand[] clock1hands = new Hand[]{new Hand(R.layout.clock1_hands_a, R.color.a_karbon),
-					new Hand(R.layout.clock1_hands_b, R.color.b_grigio),
-					new Hand(R.layout.clock1_hands_c, R.color.c_chiaro),
-					new Hand(R.layout.clock1_hands_d, R.color.d_honest)};
+//			Hand[] clock1hands = new Hand[]{new Hand(R.layout.clock1_hands_a, R.color.a_karbon),
+//					new Hand(R.layout.clock1_hands_b, R.color.b_grigio),
+//					new Hand(R.layout.clock1_hands_c, R.color.c_chiaro),
+//					new Hand(R.layout.clock1_hands_d, R.color.d_honest)};
 			
 			Hand[] digitalCutHands = new Hand[]{new Hand(R.layout.clock_hands_digital_a, R.color.a_karbon),
 					new Hand(R.layout.clock_hands_digital_b, R.color.b_grigio),

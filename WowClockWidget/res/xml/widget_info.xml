@@ -7,5 +7,7 @@
     android:minWidth="110dp"
     android:updatePeriodMillis="0"
     android:configure="com.devxperiments.wowclockwidget.widget.ConfigActivity"
+    android:previewImage="@drawable/ic_preview"
+    android:widgetCategory="keyguard|home_screen"
  >
 </appwidget-provider>

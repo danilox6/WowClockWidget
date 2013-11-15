@@ -40,6 +40,7 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 			Clock clock = ClockManager.getClock(widgetId, prefs); 
 			if(clock!=null){
 				clocks.add(clock);
+				appWidgetManager.updateAppWidget(widgetId, null);
 				appWidgetManager.updateAppWidget(widgetId, clock.createRemoteViews(context));
 			}
 		}
