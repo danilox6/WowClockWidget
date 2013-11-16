@@ -19,7 +19,6 @@ import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 public class ClockUpdateService  extends Service{  
 
