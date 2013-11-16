@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 
 public class ClockManager {
 
-	private static List<Clock> availableClocks = new ArrayList<Clock>();
+//	private  List<Clock> availableClocks = new ArrayList<Clock>();
 
 	public static String CLOCK_INDEX_PREF = "clock_index";
 	public static String HANDS_INDEX_PREF = "hands_index";
@@ -19,16 +19,15 @@ public class ClockManager {
 
 
 
-	public static Clock getClock(int widgetId,SharedPreferences prefs){
-		Clock clock = null;
+	public static Clock getClock(int widgetId,SharedPreferences prefs, List<Clock> availableClocks){
+		Clock clock = null; 
 		if(prefs.getBoolean(widgetId+"", false)){
 			int clockIndex = prefs.getInt(widgetId+CLOCK_INDEX_PREF, 0);
 			int handsIndex = prefs.getInt(widgetId+HANDS_INDEX_PREF, 0);
 			int dialIndex = prefs.getInt(widgetId+DIAL_INDEX_PREF, 0);
 			int dialAlpha = prefs.getInt(widgetId+DIAL_ALPHA_PREF, 0);
 			boolean ampm = prefs.getBoolean(widgetId+AM_PM_PREF, false);
-			if(availableClocks.isEmpty())
-				getAvailableClocks();
+			
 			clock = availableClocks.get(clockIndex);
 			if(clock!=null) {
 				clock.setCurrentDialIndex(dialIndex);
@@ -39,12 +38,18 @@ public class ClockManager {
 		}
 		return clock;
 	}
+	
+	public static Clock getClock(int widgetId, SharedPreferences prefs){
+		return getClock(widgetId, prefs, getAvailableClocks());
+	}
+	
 
 	public static void free(){
-		availableClocks.clear();
+//		availableClocks.clear();
 	}
 
 	public static List<Clock> getAvailableClocks(){
+		 List<Clock> availableClocks = new ArrayList<Clock>();
 		if(availableClocks.isEmpty()){
 
 			Dial[] backgrounds = new Dial[]{new Dial(R.drawable.clk_background_a, R.color.a_karbon),
@@ -291,5 +296,9 @@ public class ClockManager {
 		}
 
 		return availableClocks;
+	}
+	
+	public static int getClockCount(){
+		return 18; //XXX
 	}
 }

@@ -667,10 +667,11 @@ int string abs__share_action_provider_share_with 0x7f0b0006
 int string abs__shareactionprovider_share_with 0x7f0b0008
 int string abs__shareactionprovider_share_with_application 0x7f0b0009
 int string app_name 0x7f0b000f
-int string strApply 0x7f0b0010
-int string strBackColor 0x7f0b0012
-int string strBackOpacity 0x7f0b0013
-int string strHandsColor 0x7f0b0011
+int string strApply 0x7f0b0011
+int string strBackColor 0x7f0b0013
+int string strBackOpacity 0x7f0b0014
+int string strConfig 0x7f0b0010
+int string strHandsColor 0x7f0b0012
 int style AppTheme 0x7f0a005d
 int style DialogWindowTitle_Sherlock 0x7f0a003a
 int style DialogWindowTitle_Sherlock_Light 0x7f0a003b

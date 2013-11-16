@@ -17,6 +17,7 @@ import com.devxperiments.wowclockwidget.R;
 public class ClockLayoutCenterDigital extends Clock{
 
 	private int[] overlays;
+	private Bitmap overlayBitmap;
 	
 	public ClockLayoutCenterDigital(Hand[] hands, Dial[] dials){
 		this(hands, dials, null);
@@ -35,8 +36,11 @@ public class ClockLayoutCenterDigital extends Clock{
 	public RemoteViews createRemoteViews(Context context) {
 		RemoteViews baseViews = new RemoteViews(context.getPackageName(), R.layout.clock_digital_layout);
 		baseViews.setImageViewBitmap(R.id.imgDial, getDialBitmap(context));
-		if(overlays != null && overlays.length != 0)
-			baseViews.setImageViewBitmap(R.id.imgOverlay, BitmapFactory.decodeResource(context.getResources(), overlays[overlays.length != 1?getCurrentHandsIndex():0]));
+
+		if(overlays != null && overlays.length != 0){
+			overlayBitmap = BitmapFactory.decodeResource(context.getResources(), overlays[overlays.length != 1?getCurrentHandsIndex():0]);
+			baseViews.setImageViewBitmap(R.id.imgOverlay, overlayBitmap);
+		}
 		
 		Calendar calendar = Calendar.getInstance();
 		//			remoteViews.setImageViewBitmap(R.id.imgPoints, Utilities.getFontBitmapCached(this, typeface, ":", Color.BLACK, 40));
@@ -45,9 +49,11 @@ public class ClockLayoutCenterDigital extends Clock{
 		String minutes = ((calendar.get(Calendar.MINUTE)<10)?"0":"")+calendar.get(Calendar.MINUTE);
 		Bitmap timeBitmap = textAsBitmap(hours+":"+minutes, 70, context.getResources().getColor(getCurrentHands().getColorResId()));
 		baseViews.setImageViewBitmap(R.id.imgTime, timeBitmap);
-		
+		baseViews.removeAllViews(R.id.clockContainer);
 		RemoteViews handsViews = new RemoteViews(context.getPackageName(),getCurrentHands().getLayoutId());
 		baseViews.addView(R.id.clockContainer, handsViews);
+
+		baseViews.setOnClickPendingIntent(R.id.clockContainer, getDefaultClockPendingIntent(context));
 		return baseViews;
 	}
 	
@@ -69,4 +75,10 @@ public class ClockLayoutCenterDigital extends Clock{
 	    return image;
 	}
 
+	@Override
+	public void clear() {
+		super.clear();
+		if(overlayBitmap!=null)
+			overlayBitmap.recycle();
+	}
 }

@@ -1,9 +1,11 @@
 <resources>
 
-    <string name="app_name">Wow Clock Widget</string>
+    <string name="app_name">Wow KitKat Clock Widgets</string>
+   	<string name="strConfig">Widget Config</string>
     <string name="strApply">Apply</string>
     <string name="strHandsColor">Hands Color</string>
     <string name="strBackColor">Background Color</string>
     <string name="strBackOpacity">Background Opacity</string>
+    
 
 </resources>

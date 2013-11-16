@@ -15,7 +15,7 @@
         <receiver
             android:name="com.devxperiments.wowclockwidget.widget.ClockWidgetProvider"
             android:icon="@drawable/ic_launcher"
-            android:label="Wow Clock Widget" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
@@ -28,7 +28,7 @@
 
         <activity
             android:name="com.devxperiments.wowclockwidget.widget.ConfigActivity"
-            android:label="Widget Config"
+            android:label="@string/strConfig"
           >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

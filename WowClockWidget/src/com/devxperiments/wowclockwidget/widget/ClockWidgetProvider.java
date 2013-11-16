@@ -18,6 +18,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class ClockWidgetProvider extends AppWidgetProvider{
 	private PendingIntent service = null;
@@ -35,20 +36,22 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		ComponentName thisWidget = new ComponentName(context, ClockWidgetProvider.class);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+		List<Clock> availableClocks = ClockManager.getAvailableClocks();
 		for (int widgetId : allWidgetIds) {
 			//			FIXME il container serve?
-			Clock clock = ClockManager.getClock(widgetId, prefs); 
+			Clock clock = ClockManager.getClock(widgetId, prefs, availableClocks); 
 			if(clock!=null){
 				clocks.add(clock);
-				appWidgetManager.updateAppWidget(widgetId, null);
+				//				appWidgetManager.updateAppWidget(widgetId, null);
 				appWidgetManager.updateAppWidget(widgetId, clock.createRemoteViews(context));
 			}
 		}
+		ClockManager.free();
 		boolean updateService = ConfigActivity.areFragmentToBeUpdated();
 		for(Clock clock: clocks){
 			if(clock.isToBeUpdated() || updateService){
-//				Toast.makeText(context, "Starting service", Toast.LENGTH_SHORT).show();
-				
+				//				Toast.makeText(context, "Starting service", Toast.LENGTH_SHORT).show();
+
 				final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 				final Calendar TIME = Calendar.getInstance();
@@ -61,7 +64,7 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 				if (service == null) 
 					service = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-				alarmManager.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1000 * 10,service);
+				alarmManager.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1000 * 60,service); 
 				break;
 			}
 		}
@@ -72,33 +75,41 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 	public void onDeleted(Context context, int[] appWidgetIds) { 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		Editor editor = prefs.edit();
-		for(int id : appWidgetIds)
+		List<Clock> availableClocks = ClockManager.getAvailableClocks();
+		for(int id : appWidgetIds){
+			Clock c = ClockManager.getClock(id, prefs, availableClocks);
+			if(c!=null){
+				c.clear();
+				Log.i("ON DELETED", "cleared");
+			}
+			else
+				Log.i("ON DELETED", "null");
 			editor.putString(id+"", null);
+		}
 		editor.commit();
-		
+
+
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 		ComponentName thisWidget = new ComponentName(context, ClockWidgetProvider.class);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-		
-		
+
+
 		boolean updateService = false;
-		
 		for (int widgetId : allWidgetIds){
-			
-			Clock clock = ClockManager.getClock(widgetId, prefs); 
+			Clock clock = ClockManager.getClock(widgetId, prefs, availableClocks); 
 			if(clock != null && clock.isToBeUpdated()){
-				updateService = true; 
-				break;
+				updateService = true;
+				break; //Me ne basta trovare uno
 			}
 		}
-		
+
 		updateService = ConfigActivity.areFragmentToBeUpdated(); //FIXME non credo che serva qui
-				
+
 		if(!updateService && service!=null){
 			final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.cancel(service);
 		}
-		
+		System.gc();
 	}
 
 	@Override
