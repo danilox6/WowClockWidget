@@ -1,5 +1,7 @@
 package com.devxperiments.wowclockwidget.widget;
 
+import java.util.List;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -7,18 +9,24 @@ import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.devxperiments.wowclockwidget.Clock;
 import com.devxperiments.wowclockwidget.ClockManager;
 
 class ClockAdapter extends FragmentStatePagerAdapter {
+	
+	List<Clock> clocks;
 
-	public ClockAdapter(FragmentManager fm) {
+	public ClockAdapter(FragmentManager fm, List<Clock> clocks) {
 		super(fm);
+		this.clocks = clocks;
 	}
 
 	@Override
 	public Fragment getItem(int pos) {
 		Log.i("ADAPTER", "Instantiating position "+pos);
-		ConfigActivity.fragments[pos] = ClockFragment.newInstance(pos);
+		ClockFragment fragment = ClockFragment.newInstance(pos, clocks.get(pos));
+//		fragment.setDisplayedClock(clocks.get(fragment.getDisplayedClockIndex()));
+		ConfigActivity.fragments[pos] = fragment;
 		return ConfigActivity.fragments[pos];
 	}
 
@@ -29,6 +37,7 @@ class ClockAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		ClockFragment fragment = (ClockFragment) super.instantiateItem(container, position);
+//		fragment.setDisplayedClock(clocks.get(fragment.getDisplayedClockIndex()));
 		ConfigActivity.fragments[position] = fragment;
 		return fragment;
 	}

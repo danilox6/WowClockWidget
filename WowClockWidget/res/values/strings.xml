@@ -6,6 +6,7 @@
     <string name="strHandsColor">Hands Color</string>
     <string name="strBackColor">Background Color</string>
     <string name="strBackOpacity">Background Opacity</string>
-    
+    <string name="str12h">12-hour clock</string>
+    <string name="strRndCol">Random Colors</string>
 
 </resources>

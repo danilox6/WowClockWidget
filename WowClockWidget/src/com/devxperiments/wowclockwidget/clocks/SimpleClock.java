@@ -5,6 +5,7 @@ import com.devxperiments.wowclockwidget.Dial;
 import com.devxperiments.wowclockwidget.Hand;
 import com.devxperiments.wowclockwidget.R;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,7 +49,10 @@ public class SimpleClock extends Clock {
 		RemoteViews handsViews = new RemoteViews(context.getPackageName(),getCurrentHands().getLayoutId());
 		baseViews.addView(R.id.clockContainer, handsViews);
 		
-		baseViews.setOnClickPendingIntent(R.id.clockContainer, getDefaultClockPendingIntent(context));
+		PendingIntent pendingIntent = getDefaultClockPendingIntent(context);
+		if(pendingIntent!=null)
+			baseViews.setOnClickPendingIntent(R.id.clockContainer, pendingIntent);
+		
 		return baseViews;
 	}
 	

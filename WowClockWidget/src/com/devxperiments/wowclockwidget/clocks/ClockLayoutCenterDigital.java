@@ -2,6 +2,7 @@ package com.devxperiments.wowclockwidget.clocks;
 
 import java.util.Calendar;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -46,6 +47,8 @@ public class ClockLayoutCenterDigital extends Clock{
 		//			remoteViews.setImageViewBitmap(R.id.imgPoints, Utilities.getFontBitmapCached(this, typeface, ":", Color.BLACK, 40));
 		int hoursFormat = isAmpm()?Calendar.HOUR:Calendar.HOUR_OF_DAY;
 		String hours = ((calendar.get(hoursFormat)<10)?"0":"")+calendar.get(hoursFormat);
+		if(hoursFormat == Calendar.HOUR && hours.equals("00"))
+			hours = "12";
 		String minutes = ((calendar.get(Calendar.MINUTE)<10)?"0":"")+calendar.get(Calendar.MINUTE);
 		Bitmap timeBitmap = textAsBitmap(hours+":"+minutes, 70, context.getResources().getColor(getCurrentHands().getColorResId()));
 		baseViews.setImageViewBitmap(R.id.imgTime, timeBitmap);
@@ -53,7 +56,10 @@ public class ClockLayoutCenterDigital extends Clock{
 		RemoteViews handsViews = new RemoteViews(context.getPackageName(),getCurrentHands().getLayoutId());
 		baseViews.addView(R.id.clockContainer, handsViews);
 
-		baseViews.setOnClickPendingIntent(R.id.clockContainer, getDefaultClockPendingIntent(context));
+		PendingIntent pendingIntent = getDefaultClockPendingIntent(context);
+		if(pendingIntent!=null)
+			baseViews.setOnClickPendingIntent(R.id.clockContainer, pendingIntent);
+		
 		return baseViews;
 	}
 	

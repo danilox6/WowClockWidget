@@ -30,7 +30,7 @@ public abstract class Clock {
 
 	protected boolean toBeUpdated = false; //FIXME cambia nome
 
-	protected  boolean ampm = false;
+	protected boolean ampm = false;
 
 	private Bitmap dialBitmap;
 
@@ -147,6 +147,7 @@ public abstract class Clock {
 	}
 
 	protected static PendingIntent getDefaultClockPendingIntent(Context context){
+		/*
 		PackageManager packageManager = context.getPackageManager();
 		Intent alarmClockIntent = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER);
 
@@ -179,7 +180,8 @@ public abstract class Clock {
 		}
 
 		if (foundClockImpl) 
-			return PendingIntent.getActivity(context, 0, alarmClockIntent, 0);
+			return PendingIntent.getActivity(context, 0, alarmClockIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		*/
 		return null;
 		
 	}

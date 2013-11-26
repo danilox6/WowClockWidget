@@ -13,16 +13,33 @@ import com.devxperiments.wowclockwidget.Clock;
 import com.devxperiments.wowclockwidget.ClockManager;
 
 public class ClockFragment extends SherlockFragment {
+	
+	private static final String ARG_CLOCK_INDEX = "clockIndex";
+	private static final String ARG_HANDS_INDEX = "handsIndex";
+	private static final String ARG_DIAL_INDEX = "dialIndex";
+	private static final String ARG_DIAL_ALPHA = "dialAlpha";
+	private static final String ARG_AM_PM = "isAmPm";
+	
+	
+	
 	private Clock clock;
 	private Clock displayedClock;
-
+	private int displayedClockIndex;
+	
 	private FrameLayout frameLayout;
 
-	static ClockFragment newInstance(int index) {
+	static ClockFragment newInstance(int clockIndex, Clock clock) {
+		return newInstance(clockIndex, clock.getCurrentHandsIndex(), clock.getCurrentDialIndex(), clock.getDialAlpha(), clock.isAmpm());
+	}
+	
+	static ClockFragment newInstance(int clockIndex, int handsIndex, int dialIndex, int dialOpacity, boolean isAmPm) {
 		ClockFragment fragment = new ClockFragment();
-		// Supply num input as an argument.
 		Bundle args = new Bundle();
-		args.putInt("clockIndex", index);
+		args.putInt(ARG_CLOCK_INDEX, clockIndex);
+		args.putInt(ARG_HANDS_INDEX, handsIndex);
+		args.putInt(ARG_DIAL_INDEX, dialIndex);
+		args.putInt(ARG_DIAL_ALPHA, dialOpacity);
+		args.putBoolean(ARG_AM_PM, isAmPm);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -37,9 +54,14 @@ public class ClockFragment extends SherlockFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		int index = getArguments().getInt("clockIndex");
-		clock = ClockManager.getAvailableClocks().get(index);
+		Bundle args = getArguments();
+		displayedClockIndex = args.getInt(ARG_CLOCK_INDEX);
+		clock = ClockManager.getAvailableClocks().get(displayedClockIndex);
 		displayedClock = clock;
+		displayedClock.setCurrentHandIndex(args.getInt(ARG_HANDS_INDEX));
+		displayedClock.setCurrentDialIndex(args.getInt(ARG_DIAL_INDEX));
+		displayedClock.setDialAlpha(args.getInt(ARG_DIAL_ALPHA));
+		displayedClock.setAmpm(args.getBoolean(ARG_AM_PM));
 		//			 FragmentTransaction ft = getFragmentManager().beginTransaction();
 		//			 ft.add(this, index+"");
 		//			 ft.commit();
@@ -81,5 +103,9 @@ public class ClockFragment extends SherlockFragment {
 
 	public void setDisplayedClock(Clock displayedClock) {
 		this.displayedClock = displayedClock;
+	}
+	
+	public int getDisplayedClockIndex() {
+		return displayedClockIndex;
 	}
 }

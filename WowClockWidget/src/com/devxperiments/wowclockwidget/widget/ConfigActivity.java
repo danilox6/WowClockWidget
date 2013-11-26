@@ -2,6 +2,7 @@ package com.devxperiments.wowclockwidget.widget;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -31,11 +32,14 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class ConfigActivity extends SherlockFragmentActivity implements OnPageChangeListener, OnSeekBarChangeListener {
@@ -45,11 +49,14 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 	private FragmentStatePagerAdapter adapter;
 	private ViewPager pager;
 	private SeekBar seekBar;
+	private CheckBox amPmBox;
 
-	private  List<Clock> clocks = ClockManager.getAvailableClocks();;
+	private List<Clock> clocks = ClockManager.getAvailableClocks();;
 
 	private LinearLayout handsColorsLayout;
 	private LinearLayout dialColorsLayout;
+	private LinearLayout amPmLayout;
+	private LinearLayout lnlRandomButton;
 
 	private Clock selectedClock;
 	private int selectedClockIndex = -1;
@@ -78,7 +85,10 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 		handsColorsLayout = (LinearLayout) findViewById(R.id.handsColorLayout);
 		dialColorsLayout = (LinearLayout) findViewById(R.id.dialColorsLayout);
-
+		amPmLayout = (LinearLayout) findViewById(R.id.lnlAmPm);
+		amPmBox = (CheckBox) findViewById(R.id.ckb12hour);
+		lnlRandomButton = (LinearLayout) findViewById(R.id.lnlRndButton);
+		
 		if(clocks == null || clocks.isEmpty())
 			clocks = ClockManager.getAvailableClocks();
 		
@@ -97,8 +107,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		//		}
 
 		fragments = new ClockFragment[clocks.size()];
-		adapter = new ClockAdapter(fm);
-
+		adapter = new ClockAdapter(fm, clocks);
 
 
 		pager = (ViewPager) findViewById(R.id.pager);
@@ -124,7 +133,27 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		seekBar = (SeekBar) findViewById(R.id.opacitySeekBar);
 
 		seekBar.setOnSeekBarChangeListener(this);
+		
+		amPmBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(fragments[selectedClockIndex]!=null){
+					selectedClock.setAmpm(isChecked);
+					fragments[selectedClockIndex].setDisplayedClock(selectedClock);
+					fragments[selectedClockIndex].update();
+				}
+			}
+		});
 
+		lnlRandomButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				pickRandomColors();
+			}
+		});
+		
 		startUpdateService();
 
 		adapter.notifyDataSetChanged();
@@ -156,7 +185,9 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 	private void applyWidget() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-		prefs.edit().putBoolean(appWidgetId + "", true).putInt(appWidgetId + ClockManager.CLOCK_INDEX_PREF, selectedClockIndex)
+		prefs.edit()
+		.putBoolean(appWidgetId + "", true)
+		.putInt(appWidgetId + ClockManager.CLOCK_INDEX_PREF, selectedClockIndex)
 		.putInt(appWidgetId + ClockManager.HANDS_INDEX_PREF, +selectedClock.getCurrentHandsIndex())
 		.putInt(appWidgetId + ClockManager.DIAL_INDEX_PREF, selectedClock.getCurrentDialIndex())
 		.putInt(appWidgetId + ClockManager.DIAL_ALPHA_PREF, selectedClock.getDialAlpha())
@@ -170,6 +201,21 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 		setResult(RESULT_OK, resultValue);
 		finish();
+	}
+	
+	private void pickRandomColors() {
+		Random rnd = new Random();
+		int handsColor = rnd.nextInt(9); //FIXME
+		int dialColor = rnd.nextInt(9); //FIXME
+		while(handsColor==dialColor)
+			dialColor = rnd.nextInt(9);
+		
+		selectedClock.setCurrentHandIndex(handsColor);
+		selectedClock.setCurrentDialIndex(dialColor);
+
+		ClockFragment fragment = fragments[selectedClockIndex];
+		fragment.setDisplayedClock(selectedClock);
+		fragment.update();
 	}
 
 	public static boolean areFragmentToBeUpdated() {
@@ -195,15 +241,17 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		//				f.clear();
 		ClockManager.free();
 		fragments = null;
-		clocks.clear();
-		clocks = null;
+		
 	}
 
 	@Override
 	protected void onDestroy() {
 		free();
-		if (isFinishing())
+		if (isFinishing()){
+			clocks.clear();
+			clocks = null;
 			System.exit(0);
+		}
 		super.onDestroy();
 	}
 
@@ -214,6 +262,9 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 			clocks = ClockManager.getAvailableClocks();
 		selectedClock = clocks.get(position);
 		seekBar.setProgress(selectedClock.getDialAlpha());
+		amPmBox.setChecked(selectedClock.isAmpm());
+		
+		amPmLayout.setVisibility(selectedClock.isToBeUpdated()?View.VISIBLE:View.GONE);
 
 		handsColorsLayout.removeAllViews();
 		int sizeH = selectedClock.getHands().length;
@@ -224,7 +275,11 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		int sizeD = selectedClock.getDials().length;
 		for (int i = 0; i < sizeD; i++)
 			dialColorsLayout.addView(buildColorImageView(selectedClock.getDials()[i], i, sizeD));
-
+		
+		if(fragments[selectedClockIndex]!=null){
+			fragments[selectedClockIndex].setDisplayedClock(selectedClock);
+//			fragments[selectedClockIndex].update();
+		}
 	}
 
 	//	@Override
@@ -243,7 +298,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 	//	    	containerLayout.setOrientation(LinearLayout.VERTICAL);
 	//	    	controlsLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,0) );
 	//	    	previewLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,0) );
-	//	        break;
+	//	        break; 
 	//	    }
 	//	}
 
@@ -294,8 +349,8 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		if (fromUser) {
-			selectedClock.setDialAlpha(progress);
-			fragments[selectedClockIndex].update();
+//			selectedClock.setDialAlpha(progress);
+//			fragments[selectedClockIndex].update();
 		}
 	}
 
@@ -305,7 +360,8 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		// fragments[selectedClockIndex].update();
+		selectedClock.setDialAlpha(seekBar.getProgress());
+		fragments[selectedClockIndex].update();
 	}
 
 

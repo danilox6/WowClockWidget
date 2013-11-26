@@ -84,7 +84,7 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 			}
 			else
 				Log.i("ON DELETED", "null");
-			editor.putString(id+"", null);
+			editor.putBoolean(id + "", false);
 		}
 		editor.commit();
 
