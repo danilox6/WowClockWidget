@@ -2,24 +2,18 @@ package com.devxperiments.wowclockwidget.clocks;
 
 import java.util.Calendar;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.widget.RemoteViews;
 
-import com.devxperiments.wowclockwidget.Clock;
 import com.devxperiments.wowclockwidget.Dial;
 import com.devxperiments.wowclockwidget.Hand;
 import com.devxperiments.wowclockwidget.R;
 
 public class ClockLayoutCenterDigital extends Clock{
 
-	private int[] overlays;
-	private Bitmap overlayBitmap;
-	
 	public ClockLayoutCenterDigital(Hand[] hands, Dial[] dials){
 		this(hands, dials, null);
 	}
@@ -28,39 +22,20 @@ public class ClockLayoutCenterDigital extends Clock{
 		this(hands, dials, new int[]{overlay});
 	}
 	
-	public ClockLayoutCenterDigital(Hand[] hands, Dial[] dials, int[] overlays) {
-		super(hands, dials);
-		this.overlays = overlays;
+	public ClockLayoutCenterDigital(Hand[] hands, Dial[] dials, int... overlays) {
+		super(R.layout.clock_digital_layout, hands, dials, overlays);
 	}
 
 	@Override
-	public RemoteViews createRemoteViews(Context context) {
-		RemoteViews baseViews = new RemoteViews(context.getPackageName(), R.layout.clock_digital_layout);
-		baseViews.setImageViewBitmap(R.id.imgDial, getDialBitmap(context));
-
-		if(overlays != null && overlays.length != 0){
-			overlayBitmap = BitmapFactory.decodeResource(context.getResources(), overlays[overlays.length != 1?getCurrentHandsIndex():0]);
-			baseViews.setImageViewBitmap(R.id.imgOverlay, overlayBitmap);
-		}
-		
+	protected void customizeRemoteViews(Context context, RemoteViews remoteViews) {
 		Calendar calendar = Calendar.getInstance();
-		//			remoteViews.setImageViewBitmap(R.id.imgPoints, Utilities.getFontBitmapCached(this, typeface, ":", Color.BLACK, 40));
 		int hoursFormat = isAmpm()?Calendar.HOUR:Calendar.HOUR_OF_DAY;
 		String hours = ((calendar.get(hoursFormat)<10)?"0":"")+calendar.get(hoursFormat);
 		if(hoursFormat == Calendar.HOUR && hours.equals("00"))
 			hours = "12";
 		String minutes = ((calendar.get(Calendar.MINUTE)<10)?"0":"")+calendar.get(Calendar.MINUTE);
 		Bitmap timeBitmap = textAsBitmap(hours+":"+minutes, 70, context.getResources().getColor(getCurrentHands().getColorResId()));
-		baseViews.setImageViewBitmap(R.id.imgTime, timeBitmap);
-		baseViews.removeAllViews(R.id.clockContainer);
-		RemoteViews handsViews = new RemoteViews(context.getPackageName(),getCurrentHands().getLayoutId());
-		baseViews.addView(R.id.clockContainer, handsViews);
-
-		PendingIntent pendingIntent = getDefaultClockPendingIntent(context);
-		if(pendingIntent!=null)
-			baseViews.setOnClickPendingIntent(R.id.clockContainer, pendingIntent);
-		
-		return baseViews;
+		remoteViews.setImageViewBitmap(R.id.imgTime, timeBitmap);
 	}
 	
 	public Bitmap textAsBitmap(String text, float textSize, int textColor) {
@@ -81,10 +56,4 @@ public class ClockLayoutCenterDigital extends Clock{
 	    return image;
 	}
 
-	@Override
-	public void clear() {
-		super.clear();
-		if(overlayBitmap!=null)
-			overlayBitmap.recycle();
-	}
 }

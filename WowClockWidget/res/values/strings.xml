@@ -8,5 +8,6 @@
     <string name="strBackOpacity">Background Opacity</string>
     <string name="str12h">12-hour clock</string>
     <string name="strRndCol">Random Colors</string>
+    <string name="strLaunchApp">App to launch when clicked:</string>
 
 </resources>

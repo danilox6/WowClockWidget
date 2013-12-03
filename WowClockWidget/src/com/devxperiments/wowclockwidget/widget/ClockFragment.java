@@ -9,8 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.devxperiments.wowclockwidget.Clock;
 import com.devxperiments.wowclockwidget.ClockManager;
+import com.devxperiments.wowclockwidget.clocks.Clock;
 
 public class ClockFragment extends SherlockFragment {
 	
@@ -88,7 +88,7 @@ public class ClockFragment extends SherlockFragment {
 
 	public void update() {
 		if(getActivity()!=null)
-			update(displayedClock.createRemoteViews(getActivity()));
+			update(displayedClock.getWidgetRemoteViews(getActivity(),false));
 		else
 			Log.w("ACTIVITY NULL", "null");
 	}

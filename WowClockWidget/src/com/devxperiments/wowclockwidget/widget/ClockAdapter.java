@@ -9,8 +9,8 @@ import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import com.devxperiments.wowclockwidget.Clock;
 import com.devxperiments.wowclockwidget.ClockManager;
+import com.devxperiments.wowclockwidget.clocks.Clock;
 
 class ClockAdapter extends FragmentStatePagerAdapter {
 	

@@ -3,8 +3,8 @@ package com.devxperiments.wowclockwidget.widget;
 
 import java.util.List;
 
-import com.devxperiments.wowclockwidget.Clock;
 import com.devxperiments.wowclockwidget.ClockManager;
+import com.devxperiments.wowclockwidget.clocks.Clock;
 
 
 import android.app.AlarmManager;
@@ -57,7 +57,7 @@ public class ClockUpdateService  extends Service{
 				Log.i("UPDATE_SERVICE", "ci sono widget che devono essere aggiornati");
 				stopService = false;
 //				appWidgetManager.updateAppWidget(widgetId, null);
-				appWidgetManager.updateAppWidget(widgetId, clock.createRemoteViews(this));
+				appWidgetManager.updateAppWidget(widgetId, clock.getWidgetRemoteViews(this, true));
 			}
 		}
 		

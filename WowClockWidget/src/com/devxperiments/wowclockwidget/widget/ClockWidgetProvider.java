@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.devxperiments.wowclockwidget.Clock;
 import com.devxperiments.wowclockwidget.ClockManager;
+import com.devxperiments.wowclockwidget.clocks.Clock;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -43,7 +43,7 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 			if(clock!=null){
 				clocks.add(clock);
 				//				appWidgetManager.updateAppWidget(widgetId, null);
-				appWidgetManager.updateAppWidget(widgetId, clock.createRemoteViews(context));
+				appWidgetManager.updateAppWidget(widgetId, clock.getWidgetRemoteViews(context, true));
 			}
 		}
 		ClockManager.free();
@@ -76,15 +76,20 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		Editor editor = prefs.edit();
 		List<Clock> availableClocks = ClockManager.getAvailableClocks();
-		for(int id : appWidgetIds){
-			Clock c = ClockManager.getClock(id, prefs, availableClocks);
+		for(int widgetId : appWidgetIds){
+			Clock c = ClockManager.getClock(widgetId, prefs, availableClocks);
 			if(c!=null){
 				c.clear();
 				Log.i("ON DELETED", "cleared");
 			}
 			else
 				Log.i("ON DELETED", "null");
-			editor.putBoolean(id + "", false);
+			editor.putBoolean(widgetId + "", false);
+			editor.remove(widgetId+ClockManager.CLOCK_INDEX_PREF);
+			editor.remove(widgetId+ClockManager.HANDS_INDEX_PREF);
+			editor.remove(widgetId+ClockManager.DIAL_INDEX_PREF);
+			editor.remove(widgetId+ClockManager.DIAL_ALPHA_PREF);
+			editor.remove(widgetId+ClockManager.AM_PM_PREF);
 		}
 		editor.commit();
 
@@ -114,7 +119,6 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 
 	@Override
 	public void onDisabled(Context context) {
-		PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).edit().clear().commit();
 		if(service!=null){
 			final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.cancel(service);
@@ -122,8 +126,6 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 	}
 
 	@Override
-	public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
-		// TODO Auto-generated method stub
-	}
+	public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {}
 
 }
