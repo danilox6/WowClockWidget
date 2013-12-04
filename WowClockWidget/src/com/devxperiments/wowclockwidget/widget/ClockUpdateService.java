@@ -18,7 +18,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class ClockUpdateService  extends Service{  
 
@@ -54,21 +53,20 @@ public class ClockUpdateService  extends Service{
 			//			FIXME il container serve?
 			Clock clock = ClockManager.getClock(widgetId, prefs, availableClocks); 
 			if(clock!=null && clock.isToBeUpdated()){
-				Log.i("UPDATE_SERVICE", "ci sono widget che devono essere aggiornati");
+//				Log.i("UPDATE_SERVICE", "ci sono widget che devono essere aggiornati");
 				stopService = false;
-//				appWidgetManager.updateAppWidget(widgetId, null);
-				appWidgetManager.updateAppWidget(widgetId, clock.getWidgetRemoteViews(this, true));
+				appWidgetManager.updateAppWidget(widgetId, clock.getWidgetRemoteViews(this, widgetId));
 			}
 		}
 		
 		if(ConfigActivity.areFragmentToBeUpdated()){
-			Log.i("UPDATE_SERVICE", "ci sono fragment che devono essere aggiornati");
+//			Log.i("UPDATE_SERVICE", "ci sono fragment che devono essere aggiornati");
 			stopService = false;
 			ConfigActivity.updateFragments();
 		}
 		
 		if(stopService){
-			Log.i("UPDATE_SERVICE", "mi posso fermare, non c'è niente da aggiornare");
+//			Log.i("UPDATE_SERVICE", "mi posso fermare, non c'è niente da aggiornare");
 //			Toast.makeText(this, "Trying to stop service...", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(this, ClockUpdateService.class);
 			PendingIntent service = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);

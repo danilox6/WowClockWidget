@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.devxperiments.wowclockwidget.ClockManager;
@@ -23,7 +22,6 @@ class ClockAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public Fragment getItem(int pos) {
-		Log.i("ADAPTER", "Instantiating position "+pos);
 		ClockFragment fragment = ClockFragment.newInstance(pos, clocks.get(pos));
 //		fragment.setDisplayedClock(clocks.get(fragment.getDisplayedClockIndex()));
 		ConfigActivity.fragments[pos] = fragment;

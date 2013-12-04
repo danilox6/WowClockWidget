@@ -40,7 +40,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 		App app = getItem(position);  
 		holder.imgIcon.setImageDrawable(app.getIcon());
-		holder.txtAppName.setText(app.getName());
+		holder.txtAppName.setText(app.getApplicationName());
 
 		return view;
 	}

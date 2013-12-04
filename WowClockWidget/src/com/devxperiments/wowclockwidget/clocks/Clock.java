@@ -4,13 +4,13 @@ import com.devxperiments.wowclockwidget.Dial;
 import com.devxperiments.wowclockwidget.Hand;
 import com.devxperiments.wowclockwidget.R;
 import com.devxperiments.wowclockwidget.apppicker.App;
-import com.devxperiments.wowclockwidget.apppicker.NoApp;
+import com.devxperiments.wowclockwidget.widget.ClockWidgetProvider;
 
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -104,9 +104,13 @@ public abstract class Clock {
 	public Hand getCurrentHands(){
 		return hands[currentHandIndex];
 	}
+	
+	public RemoteViews getWidgetRemoteViews(Context context){
+		return getWidgetRemoteViews(context, AppWidgetManager.INVALID_APPWIDGET_ID);
+	}
 
 	
-	public RemoteViews getWidgetRemoteViews(Context context, boolean clickable){
+	public RemoteViews getWidgetRemoteViews(Context context, int widgetId){
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), baseLayoutResId);
 		remoteViews.setImageViewBitmap(R.id.imgDial, getDialBitmap(context));
 		
@@ -121,8 +125,8 @@ public abstract class Clock {
 		RemoteViews handsViews = new RemoteViews(context.getPackageName(),getCurrentHands().getLayoutId());
 		remoteViews.addView(R.id.clockContainer, handsViews);
 		
-		if(clickable){
-			PendingIntent pendingIntent = getAppPendingIntent(context);
+		if(widgetId != AppWidgetManager.INVALID_APPWIDGET_ID){
+			PendingIntent pendingIntent = getAppPendingIntent(context, widgetId);
 			if(pendingIntent!=null)
 				remoteViews.setOnClickPendingIntent(R.id.clockContainer, pendingIntent);
 		}
@@ -175,23 +179,12 @@ public abstract class Clock {
 		return bitmap;
 	}
 
-	protected static PendingIntent getAppPendingIntent(Context context){
-	
+	private PendingIntent getAppPendingIntent(Context context, int widgetId) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		
-		String appPref = prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE);
-		App app;
-		try {
-			app = App.fromPrefString(context, appPref);
-		} catch (NameNotFoundException e) {
-			app = new NoApp(context);
-		}
-		if(app instanceof NoApp)
-			return null;
-		
-		Intent intent = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER);
-		intent.setComponent(app.getComponentName());
-		return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		Intent intent = new Intent(context, ClockWidgetProvider.class);
+        intent.setAction(ClockWidgetProvider.ACTION_WIDGET_CLICK);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        intent.putExtra(App.APP_PKG_CLS_PREF, prefs.getString(widgetId+App.APP_PKG_CLS_PREF, App.APP_NONE));
+        return  PendingIntent.getBroadcast(context, widgetId, intent , Intent.FILL_IN_DATA|PendingIntent.FLAG_UPDATE_CURRENT);
 	}
-	 
 }

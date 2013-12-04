@@ -26,7 +26,7 @@ public class AppPickerActivity extends SherlockListActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.app_picker_layout);
+		setContentView(R.layout.app_picker_layout); 
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -73,6 +73,8 @@ public class AppPickerActivity extends SherlockListActivity{
 		    	
 		    }
 		    appList.add(new NoApp(getApplicationContext()));
+		    appList.add(App.getConfigApp(getApplicationContext()));
+		    
 		    Collections.sort(appList);
 			return appList;
 		}

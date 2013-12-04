@@ -19,6 +19,7 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="com.devxperiments.wowclockwidget.widget.ACTION_WIDGET_CLICK"/>
             </intent-filter>
 
             <meta-data

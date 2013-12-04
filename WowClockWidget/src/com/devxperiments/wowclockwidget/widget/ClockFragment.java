@@ -1,7 +1,6 @@
 package com.devxperiments.wowclockwidget.widget;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,6 @@ public class ClockFragment extends SherlockFragment {
 		clock.clear(); 
 		displayedClock.clear();
 		frameLayout.removeAllViews();
-		Log.i("CLEAR FRAGMENT", "cleared");
 	}
 
 	@Override
@@ -88,14 +86,10 @@ public class ClockFragment extends SherlockFragment {
 
 	public void update() {
 		if(getActivity()!=null)
-			update(displayedClock.getWidgetRemoteViews(getActivity(),false));
-		else
-			Log.w("ACTIVITY NULL", "null");
+			update(displayedClock.getWidgetRemoteViews(getActivity()));
 	}
 
 	public void update(RemoteViews remoteViews) {
-		//			clear(); //FIXME 
-		Log.i("DRAWING","hands: "+ displayedClock.getCurrentHandsIndex() + "dial: "+displayedClock.getCurrentDialIndex());
 		frameLayout.removeAllViews();
 		frameLayout.addView(remoteViews.apply(getActivity(), frameLayout));
 //		displayedClock.clear(); 

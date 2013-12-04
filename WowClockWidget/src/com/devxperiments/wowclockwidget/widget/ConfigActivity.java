@@ -11,7 +11,6 @@ import com.devxperiments.wowclockwidget.ClockManager;
 import com.devxperiments.wowclockwidget.R;
 import com.devxperiments.wowclockwidget.apppicker.App;
 import com.devxperiments.wowclockwidget.apppicker.AppPickerActivity;
-import com.devxperiments.wowclockwidget.apppicker.NoApp;
 import com.devxperiments.wowclockwidget.clocks.Clock;
 import com.viewpagerindicator.LinePageIndicator;
 
@@ -82,7 +81,6 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 			appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 		if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID)
 			finish();
-
 		amPmLayout = (LinearLayout) findViewById(R.id.lnlAmPm);
 		amPmBox = (CheckBox) findViewById(R.id.ckb12hour);
 
@@ -132,16 +130,23 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		});
 
 		appIconImageView = (ImageView) findViewById(R.id.imgAppIcon);
-		updateAppPickerPref();
+		updateAppPickerPrefView();
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		if(prefs.getBoolean(appWidgetId+"", false))
+			configExistingWidget(prefs);
 
 		startUpdateService();
 
 		adapter.notifyDataSetChanged(); //FIXME non dovrebbe servire
 	}
-
-
-
-
+	
+	private void configExistingWidget(SharedPreferences prefs){
+		int clockIndex = prefs.getInt(appWidgetId+ClockManager.CLOCK_INDEX_PREF, 0);
+		Clock clock = ClockManager.getClock(appWidgetId, prefs, clocks);
+		clocks.set(clockIndex, clock);
+		pager.setCurrentItem(clockIndex, false);
+	}
 
 	private void startUpdateService() {
 		Calendar TIME = Calendar.getInstance();
@@ -175,10 +180,11 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		.putInt(appWidgetId + ClockManager.DIAL_INDEX_PREF, selectedClock.getCurrentDialIndex())
 		.putInt(appWidgetId + ClockManager.DIAL_ALPHA_PREF, selectedClock.getDialAlpha())
 		.putBoolean(appWidgetId + ClockManager.AM_PM_PREF, selectedClock.isAmpm())
+		.putString(appWidgetId+App.APP_PKG_CLS_PREF, prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE))
 		.commit();
 
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-		appWidgetManager.updateAppWidget(appWidgetId, selectedClock.getWidgetRemoteViews(this, true));
+		appWidgetManager.updateAppWidget(appWidgetId, selectedClock.getWidgetRemoteViews(this, appWidgetId));
 		selectedClock.clear(); 
 
 		Intent resultValue = new Intent();
@@ -278,18 +284,27 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode == RESULT_OK)
-			updateAppPickerPref();
+		if(resultCode == RESULT_OK){
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			updateAppPickerPrefView(prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE));
+		}
 	}
-
-	private void updateAppPickerPref() {
+	
+	private void updateAppPickerPrefView(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String appPref = prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE);
+		String appPref = prefs.getString(appWidgetId+App.APP_PKG_CLS_PREF, prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE)); //Give the pref relative to the actual widget or, i doesn'r exists, the last preference
+		updateAppPickerPrefView(appPref);
+	}
+	
+	private void updateAppPickerPrefView(String appPref) {
 		App app;
 		try {
 			app = App.fromPrefString(this, appPref);
 		} catch (NameNotFoundException e) {
-			app = new NoApp(this);
+			app = App.getConfigApp(this);
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			if(appPref.equals(prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE)))
+				prefs.edit().putString(App.APP_PKG_CLS_PREF, app.toPrefString()).commit();
 		}
 		appIconImageView.setImageDrawable(app.getIcon());
 	}

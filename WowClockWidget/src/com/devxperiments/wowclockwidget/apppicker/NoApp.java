@@ -11,11 +11,6 @@ public class NoApp extends App{
 	}
 	
 	@Override
-	public int compareTo(App another) {
-		return -1;
-	}
-	
-	@Override
 	public String toPrefString() {
 		return APP_NONE;
 	}

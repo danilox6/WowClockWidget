@@ -131,9 +131,6 @@ public class ClockManager {
 					new Hand(R.layout.clock_hands_arrow_h, R.color.h_arancio),
 					new Hand(R.layout.clock_hands_arrow_i, R.color.i_rosso)};
 			
-			
-			
-			
 			int[] ringOverlays = new int[]{R.drawable.clk_overlay_ring_a,
 										R.drawable.clk_overlay_ring_b,
 										R.drawable.clk_overlay_ring_c,
