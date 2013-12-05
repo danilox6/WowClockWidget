@@ -40,6 +40,7 @@ import android.widget.TabHost;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 public class ConfigActivity extends SherlockFragmentActivity implements OnPageChangeListener, OnSeekBarChangeListener {
 
@@ -54,13 +55,14 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 	private SeekBar seekBar;
 	private CheckBox amPmBox;
 	private ImageView appIconImageView;
+	private TextView appNameTextView;
 
 	private ColorPicker colorPicker;
 
 	private List<Clock> clocks = ClockManager.getAvailableClocks();;
 
 	private LinearLayout amPmLayout;
-
+	
 	private Clock selectedClock;
 	private int selectedClockIndex = -1;
 
@@ -94,6 +96,8 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		pager.setOffscreenPageLimit(0);
 		pager.setAdapter(adapter);
 
+		
+		
 		LinePageIndicator indicator = (LinePageIndicator) findViewById(R.id.indicator);
 		indicator.setViewPager(pager);
 		indicator.setOnPageChangeListener(this);
@@ -130,6 +134,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		});
 
 		appIconImageView = (ImageView) findViewById(R.id.imgAppIcon);
+		appNameTextView = (TextView) findViewById(R.id.txtAppName);
 		updateAppPickerPrefView();
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -137,7 +142,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 			configExistingWidget(prefs);
 
 		startUpdateService();
-
+		
 		adapter.notifyDataSetChanged(); //FIXME non dovrebbe servire
 	}
 	
@@ -195,10 +200,10 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 	public void onRandomColorsClick(View v) {
 		Random rnd = new Random();
-		int handsColor = rnd.nextInt(9); //FIXME
-		int dialColor = rnd.nextInt(9); //FIXME
+		int handsColor = rnd.nextInt(12); //FIXME
+		int dialColor = rnd.nextInt(12); //FIXME
 		while(handsColor==dialColor)
-			dialColor = rnd.nextInt(9);
+			dialColor = rnd.nextInt(12);
 
 		selectedClock.setCurrentHandIndex(handsColor);
 		selectedClock.setCurrentDialIndex(dialColor);
@@ -307,13 +312,15 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 				prefs.edit().putString(App.APP_PKG_CLS_PREF, app.toPrefString()).commit();
 		}
 		appIconImageView.setImageDrawable(app.getIcon());
+		appNameTextView.setText(app.getApplicationName());
 	}
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
-		if (hasFocus)
+		if (hasFocus){
 			onPageSelected(selectedClockIndex == -1 ? 0 : selectedClockIndex);
+		}
 	}
 
 	@Override

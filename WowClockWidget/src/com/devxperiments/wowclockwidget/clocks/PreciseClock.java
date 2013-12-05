@@ -22,7 +22,10 @@ public class PreciseClock extends Clock {
 			R.drawable.clk_overlay_precise_i_f,
 			R.drawable.clk_overlay_precise_i_g,
 			R.drawable.clk_overlay_precise_i_h,
-			R.drawable.clk_overlay_precise_i_i};
+			R.drawable.clk_overlay_precise_i_i,
+			R.drawable.clk_overlay_precise_i_j,
+			R.drawable.clk_overlay_precise_i_k,
+			R.drawable.clk_overlay_precise_i_l};
 
 	public PreciseClock(Hand[] hands, Dial[] dials, int... overlays) {
 		super(R.layout.clock_precise_layout, hands, dials, overlays);

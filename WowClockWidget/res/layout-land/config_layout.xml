@@ -326,7 +326,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                  <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -336,7 +336,8 @@
                     <RelativeLayout
                         android:layout_width="0px"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5" >
+                        android:layout_weight="0.5"
+                        android:onClick="onAppPickerClick" >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -344,18 +345,60 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
-                            android:layout_toLeftOf="@+id/imgAppIcon"
+                            android:layout_toLeftOf="@+id/appInfoLayout"
                             android:text="@string/strLaunchApp" />
 
-                        <ImageView
-                            android:id="@+id/imgAppIcon"
+                        <RelativeLayout
+                            android:id="@+id/appInfoLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
-                            android:layout_margin="2dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/ic_launcher" />
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginTop="2dp" >
+
+                            <ImageView
+                                android:id="@+id/imgAppIcon"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_centerHorizontal="true"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_launcher" />
+
+                            <TextView
+                                android:id="@+id/txtAppName"
+                                android:layout_width="72dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgAppIcon"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="Widget Configuration"
+                                android:textSize="10sp" />
+                            
+                           
+                        </RelativeLayout>
+                         <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:visibility="invisible"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/strBackOpacity" />
+
+                                <SeekBar
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="5dp"
+                                    android:max="255"
+                                    android:progress="255" />
+                                </LinearLayout>
                     </RelativeLayout>
 
                     <View

@@ -131,7 +131,7 @@
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="2" />
-
+                            
                             <ImageView
                                 android:id="@+id/img_d_honest"
                                 android:layout_width="0px"
@@ -142,19 +142,38 @@
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="3" />
-
-                            <ImageView
-                                android:id="@+id/img_e_viola"
+                            
+                              <ImageView
+                                android:id="@+id/img_k_agua"
                                 android:layout_width="0px"
-                                android:layout_height="40dp"
+                                android:layout_height="match_parent"
                                 android:layout_weight="0.8"
-                                android:background="@color/e_viola"
+                                android:background="@color/k_agua"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
-                                android:tag="4" />
+                                android:tag="10" />
 
                             <ImageView
+                                android:id="@+id/img_l_verdino"
+                                android:layout_width="0px"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
+                                android:background="@color/l_verdino"
+                                android:onClick="onColorClick"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="15dp"
+                                android:tag="11" />
+
+                          
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:orientation="horizontal" >
+                            
+                              <ImageView
                                 android:id="@+id/img_f_verde"
                                 android:layout_width="0px"
                                 android:layout_height="match_parent"
@@ -164,12 +183,6 @@
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="5" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal" >
 
                             <ImageView
                                 android:id="@+id/img_g_giallo"
@@ -214,28 +227,18 @@
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="9" />
-
-                            <ImageView
-                                android:id="@+id/img_k_agua"
+                            
+                             <ImageView
+                                android:id="@+id/img_e_viola"
                                 android:layout_width="0px"
-                                android:layout_height="match_parent"
+                                android:layout_height="40dp"
                                 android:layout_weight="0.8"
-                                android:background="@color/k_agua"
+                                android:background="@color/e_viola"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
-                                android:tag="10" />
+                                android:tag="4" />
 
-                            <ImageView
-                                android:id="@+id/img_l_verdino"
-                                android:layout_width="0px"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.8"
-                                android:background="@color/l_verdino"
-                                android:onClick="onColorClick"
-                                android:paddingBottom="15dp"
-                                android:paddingTop="15dp"
-                                android:tag="11" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -322,8 +325,8 @@
                     <RelativeLayout
                         android:layout_width="0px"
                         android:layout_height="wrap_content"
-                        android:onClick="onAppPickerClick"
-                        android:layout_weight="0.5" >
+                        android:layout_weight="0.5"
+                        android:onClick="onAppPickerClick" >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -331,18 +334,60 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
-                            android:layout_toLeftOf="@+id/imgAppIcon"
+                            android:layout_toLeftOf="@+id/appInfoLayout"
                             android:text="@string/strLaunchApp" />
 
-                        <ImageView
-                            android:id="@+id/imgAppIcon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                        <RelativeLayout
+                            android:id="@+id/appInfoLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
-                            android:layout_margin="2dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/ic_launcher" />
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginTop="2dp" >
+
+                            <ImageView
+                                android:id="@+id/imgAppIcon"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_centerHorizontal="true"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_launcher" />
+
+                            <TextView
+                                android:id="@+id/txtAppName"
+                                android:layout_width="72dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgAppIcon"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="Widget Configuration"
+                                android:textSize="10sp" />
+                            
+                           
+                        </RelativeLayout>
+                         <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:visibility="invisible"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/strBackOpacity" />
+
+                                <SeekBar
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="5dp"
+                                    android:max="255"
+                                    android:progress="255" />
+                                </LinearLayout>
                     </RelativeLayout>
 
                     <View

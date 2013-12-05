@@ -11,7 +11,7 @@
     <color name="g_giallo">#FFCE0D</color>
     <color name="h_arancio">#FF8800</color>
     <color name="i_rosso">#FF4919</color>
-    <color name="j_fucsia">#fb2c7e</color>
-    <color name="k_agua">#0BC6C6</color>
-    <color name="l_verdino">#30ceba</color>
+    <color name="j_fucsia">#fc3f6a</color>
+    <color name="k_agua">#0faaba</color>
+    <color name="l_verdino">#39a88b</color>
 </resources>
