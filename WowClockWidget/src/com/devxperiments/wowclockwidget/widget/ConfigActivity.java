@@ -14,6 +14,7 @@ import com.devxperiments.wowclockwidget.apppicker.AppPickerActivity;
 import com.devxperiments.wowclockwidget.clocks.Clock;
 import com.viewpagerindicator.LinePageIndicator;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
@@ -23,12 +24,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.TypedValue;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -40,6 +46,7 @@ import android.widget.TabHost;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 public class ConfigActivity extends SherlockFragmentActivity implements OnPageChangeListener, OnSeekBarChangeListener {
@@ -62,7 +69,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 	private List<Clock> clocks = ClockManager.getAvailableClocks();;
 
 	private LinearLayout amPmLayout;
-	
+
 	private Clock selectedClock;
 	private int selectedClockIndex = -1;
 
@@ -96,8 +103,6 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		pager.setOffscreenPageLimit(0);
 		pager.setAdapter(adapter);
 
-		
-		
 		LinePageIndicator indicator = (LinePageIndicator) findViewById(R.id.indicator);
 		indicator.setViewPager(pager);
 		indicator.setOnPageChangeListener(this);
@@ -115,8 +120,9 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		mTabHost = (TabHost)findViewById(android.R.id.tabhost);
 		mTabHost.setOnTabChangedListener(colorPicker);
 		mTabHost.setup();
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_ID_HANDS).setIndicator(getResources().getString(R.string.strHandsColor)).setContent(android.R.id.tabcontent));
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_ID_DIAL).setIndicator(getResources().getString(R.string.strBackColor)).setContent(android.R.id.tabcontent));
+		addTab(R.string.strHandsColor, TAB_ID_HANDS);
+		addTab(R.string.strBackColor, TAB_ID_DIAL);
+
 
 		seekBar = (SeekBar) findViewById(R.id.opacitySeekBar);
 		seekBar.setOnSeekBarChangeListener(this);
@@ -136,14 +142,14 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		appIconImageView = (ImageView) findViewById(R.id.imgAppIcon);
 		appNameTextView = (TextView) findViewById(R.id.txtAppName);
 		updateAppPickerPrefView();
-		
+
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		if(prefs.getBoolean(appWidgetId+"", false))
 			configExistingWidget(prefs);
 
 		startUpdateService();
-		
-		adapter.notifyDataSetChanged(); //FIXME non dovrebbe servire
+
+//		adapter.notifyDataSetChanged(); //FIXME non dovrebbe servire
 	}
 	
 	private void configExistingWidget(SharedPreferences prefs){
@@ -294,13 +300,13 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 			updateAppPickerPrefView(prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE));
 		}
 	}
-	
+
 	private void updateAppPickerPrefView(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String appPref = prefs.getString(appWidgetId+App.APP_PKG_CLS_PREF, prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE)); //Give the pref relative to the actual widget or, i doesn'r exists, the last preference
 		updateAppPickerPrefView(appPref);
 	}
-	
+
 	private void updateAppPickerPrefView(String appPref) {
 		App app;
 		try {
@@ -329,6 +335,8 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		fragments[selectedClockIndex].update();
 	}
 
+
+
 	@Override
 	public void onPageScrollStateChanged(int arg0) {}
 
@@ -341,5 +349,40 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {}
+	
+	private void addTab(int titleResId, String tag) {
+		TabSpec tabSpec = mTabHost.newTabSpec(tag).setContent(android.R.id.tabcontent);
+		String tabTitle = getString(titleResId);
+		
+		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB){
+			mTabHost.getTabWidget().setDividerDrawable(com.actionbarsherlock.R.drawable.abs__list_divider_holo_light);
+			tabSpec.setIndicator(customTabTextView(tabTitle));
+		}else
+			tabSpec.setIndicator(tabTitle);
+
+		mTabHost.addTab(tabSpec);
+	}
+
+	@SuppressLint("DefaultLocale")
+	private View customTabTextView(String title){
+		TextView tabView = new TextView(this);
+		tabView.setText(title.toUpperCase());
+		tabView.setPadding(0, 5, 0, 0);
+		tabView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+		tabView.setTextColor(Color.DKGRAY);
+		tabView.setGravity(Gravity.CENTER);
+		tabView.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+		tabView.setHeight(dp2px(48, this));
+		tabView.setBackgroundResource(R.drawable.tab_indicator_holo);
+//		style="?attr/actionBarTabStyle" //FIXME Provare così
+//		ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) tabView.getLayoutParams();
+//		//Fix margins in 2.x, by default there is -2  
+//		params.setMargins(0, 0, 0, 0);
+		return tabView;
+	}
+	private int dp2px(int dip, Context context){
+        float scale = context.getResources().getDisplayMetrics().density;
+        return Math.round(dip * scale + 0.5f);
+}
 
 }

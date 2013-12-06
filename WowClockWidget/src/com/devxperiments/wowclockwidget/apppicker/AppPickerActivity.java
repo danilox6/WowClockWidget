@@ -80,9 +80,10 @@ public class AppPickerActivity extends SherlockListActivity{
 		}
 		
 		@Override
-		protected void onPostExecute(List<App> result) {
+		protected void onPostExecute(List<App> results) {
 			adapter.clear();
-			adapter.addAll(result);
+			for(App app: results)
+				adapter.add(app);
 		}
 		
 	}
