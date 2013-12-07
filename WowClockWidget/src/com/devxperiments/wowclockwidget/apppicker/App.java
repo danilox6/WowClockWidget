@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
 
 public class App implements Comparable<App>{
@@ -104,7 +107,7 @@ public class App implements Comparable<App>{
 		
 		private String appName;
 
-		public ConfigApp(Context context) throws NameNotFoundException {
+		private ConfigApp(Context context) throws NameNotFoundException {
 			super(context, CONFIG_PKG, CONFIG_CLS);
 			appName = context.getString(R.string.strConfig);
 		}
@@ -122,6 +125,30 @@ public class App implements Comparable<App>{
 			return null;
 		}
 	}
+	
+	public static NoApp getNoApp(Context context){
+		return new NoApp(context);
+	}
+	
+	public static class NoApp extends App{
 
+		private NoApp(Context context) {
+			super(context.getString(R.string.strNoApp), getNoAppIcon(context)); 
+		}
+		
+		@Override
+		public String toPrefString() {
+			return APP_NONE;
+		}
+		
+		private static Drawable getNoAppIcon(Context context){
+			Drawable drawable = context.getResources().getDrawable(R.drawable.ic_launcher).mutate();
+			ColorMatrix matrix = new ColorMatrix();
+			matrix.setSaturation(0);
+			ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+			drawable.setColorFilter(filter);
+			return drawable;
+		}
+	}
 
 }

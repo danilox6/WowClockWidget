@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">Wow KitKat Clock Widgets</string>
-   	<string name="strConfig">Widget Configuration</string>
+    <string name="strConfig">Widget Configuration</string>
     <string name="strApply">Apply</string>
     <string name="strHandsColor">Hands Color</string>
     <string name="strBackColor">Background Color</string>
@@ -9,7 +9,11 @@
     <string name="str12h">12-hour clock</string>
     <string name="strRndCol">Random Colors</string>
     <string name="strLaunchApp">App to launch when clicked:</string>
-    
+    <string name="strNoAppAction">Disable widget click</string>
+    <string name="strNoApp">Widget Click Disabled</string>
+    <string name="strAppPicker">App Picker</string>
+    <string name="strAppPickerSub">App to launch when widget is clicked</string>
+   
     <string name="descrColor">Color</string>
     <string name="descrAppIcon">App Icon</string>
     <string name="descrDice">Random Dice</string>

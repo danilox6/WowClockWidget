@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.devxperiments.wowclockwidget.ClockManager;
 import com.devxperiments.wowclockwidget.apppicker.App;
-import com.devxperiments.wowclockwidget.apppicker.NoApp;
+import com.devxperiments.wowclockwidget.apppicker.App.NoApp;
 import com.devxperiments.wowclockwidget.apppicker.App.ConfigApp;
 import com.devxperiments.wowclockwidget.clocks.Clock;
 
