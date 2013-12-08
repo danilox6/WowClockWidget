@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
@@ -17,6 +16,7 @@ public class App implements Comparable<App>{
 	
 	public static final String APP_PKG_CLS_PREF = "appPkgClsPref";
 	public static final String APP_NONE = "none";
+	public static final String APP_CONFIG = "config";
 	
 	private static final char PKG_CLASS_SEPARATOR = '/';
 
@@ -79,6 +79,8 @@ public class App implements Comparable<App>{
 	}
 	
 	public static App fromPrefString(Context context, String prefString) throws NameNotFoundException {
+		if(prefString.equals(APP_CONFIG))
+			return new ConfigApp(context);
 		if(prefString.equals(APP_NONE))
 			return new NoApp(context);
 		int indexOfSeparator = prefString.indexOf(PKG_CLASS_SEPARATOR);

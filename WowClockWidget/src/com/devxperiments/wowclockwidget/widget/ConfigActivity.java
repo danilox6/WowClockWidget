@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -94,7 +93,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		amPmBox = (CheckBox) findViewById(R.id.ckb12hour);
 
 		if(clocks == null || clocks.isEmpty())
-			clocks = ClockManager.getAvailableClocks();
+			clocks = ClockManager.getAvailableClocks(); 
 
 		fragments = new ClockFragment[clocks.size()];
 		adapter = new ClockAdapter(getSupportFragmentManager(), clocks);
@@ -304,7 +303,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 	private void updateAppPickerPrefView(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String appPref = prefs.getString(appWidgetId+App.APP_PKG_CLS_PREF, prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE)); //Give the pref relative to the actual widget or, i doesn'r exists, the last preference
+		String appPref = prefs.getString(appWidgetId+App.APP_PKG_CLS_PREF, prefs.getString(App.APP_PKG_CLS_PREF, App.APP_CONFIG)); //Give the pref relative to the actual widget or, i doesn'r exists, the last preference
 		updateAppPickerPrefView(appPref);
 	}
 
