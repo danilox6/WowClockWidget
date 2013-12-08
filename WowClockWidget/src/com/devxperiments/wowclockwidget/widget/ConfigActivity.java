@@ -112,8 +112,9 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 		RelativeLayout rLayout = (RelativeLayout) findViewById(R.id.previewContainer);
 		Display display = getWindowManager().getDefaultDisplay();
-		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-			rLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, display.getHeight() / 3));
+		int newHeight = Math.max(display.getHeight(), display.getWidth())/3;
+//		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+		rLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, newHeight));
 
 		colorPicker = new ColorPicker(this);
 

@@ -49,10 +49,10 @@
 
         <ScrollView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fadeScrollbars="false"
-            android:scrollbarThumbVertical="@drawable/scrollbar" 
             android:scrollbarSize="1dp"
-            android:layout_height="wrap_content" >
+            android:scrollbarThumbVertical="@drawable/scrollbar" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,7 +81,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0"
-
                                 android:orientation="horizontal" />
 
                             <FrameLayout
@@ -89,8 +88,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_weight="0" />
-                            
-                            
                         </LinearLayout>
                     </TabHost>
 
@@ -111,6 +108,7 @@
                                 android:layout_height="40dp"
                                 android:layout_weight="0.8"
                                 android:background="@color/a_karbon"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
@@ -122,6 +120,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/b_grigio"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
@@ -133,28 +132,31 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/c_chiaro"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="2" />
-                            
+
                             <ImageView
                                 android:id="@+id/img_d_honest"
                                 android:layout_width="0px"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/d_honest"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="3" />
-                            
-                              <ImageView
+
+                            <ImageView
                                 android:id="@+id/img_k_agua"
                                 android:layout_width="0px"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/k_agua"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
@@ -166,25 +168,25 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/l_verdino"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="11" />
-
-                          
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:orientation="horizontal" >
-                            
-                              <ImageView
+
+                            <ImageView
                                 android:id="@+id/img_f_verde"
                                 android:layout_width="0px"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/f_verde"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
@@ -196,6 +198,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/g_giallo"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
@@ -207,6 +210,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/h_arancio"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
@@ -218,6 +222,7 @@
                                 android:layout_height="40dp"
                                 android:layout_weight="0.8"
                                 android:background="@color/i_rosso"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
@@ -229,22 +234,23 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.8"
                                 android:background="@color/j_fucsia"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="9" />
-                            
-                             <ImageView
+
+                            <ImageView
                                 android:id="@+id/img_e_viola"
                                 android:layout_width="0px"
                                 android:layout_height="40dp"
                                 android:layout_weight="0.8"
                                 android:background="@color/e_viola"
+                                android:contentDescription="@string/descrColor"
                                 android:onClick="onColorClick"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="15dp"
                                 android:tag="4" />
-
                         </LinearLayout>
                     </LinearLayout>
 
@@ -371,30 +377,29 @@
                                 android:maxLines="2"
                                 android:text="Widget Configuration"
                                 android:textSize="10sp" />
-                            
-                           
                         </RelativeLayout>
-                         <LinearLayout
-                                android:layout_width="match_parent"
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="invisible" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:visibility="invisible"
-                                android:orientation="vertical" >
+                                android:layout_marginTop="5dp"
+                                android:text="@string/strBackOpacity" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginTop="5dp"
-                                    android:text="@string/strBackOpacity" />
-
-                                <SeekBar
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="5dp"
-                                    android:max="255"
-                                    android:progress="255" />
-                                </LinearLayout>
+                            <SeekBar
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:max="255"
+                                android:progress="255" />
+                        </LinearLayout>
                     </RelativeLayout>
 
                     <View

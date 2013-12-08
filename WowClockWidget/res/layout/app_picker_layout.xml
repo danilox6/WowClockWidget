@@ -2,70 +2,82 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/c_chiaro"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:onClick="onAppSettingClick"
-        android:tag="config"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical" >
 
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:contentDescription="@string/descrAppIcon"
-            android:src="@drawable/ic_launcher" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:onClick="onAppSettingClick"
+            android:orientation="horizontal"
+            android:tag="config" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/strConfig"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/descrAppIcon"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/strConfig"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/b_grigio" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:onClick="onAppSettingClick"
+            android:orientation="horizontal"
+            android:tag="none" >
+
+            <ImageView
+                android:id="@+id/imgNoAppIcon"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/descrAppIcon"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/strNoAppAction"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
     </LinearLayout>
 
-    <View
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/b_grigio" />
+        android:layout_height="wrap_content" >
 
-    <LinearLayout
-        android:onClick="onAppSettingClick"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:tag="none"
-        android:orientation="horizontal" >
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+             />
 
         <ImageView
-            android:id="@+id/imgNoAppIcon"
-            android:layout_width="48dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:contentDescription="@string/descrAppIcon"
-            android:src="@drawable/ic_launcher" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/strNoAppAction"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/b_grigio" />
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-       	android:divider="@null"
-       	android:dividerHeight="0dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/abs__ab_solid_shadow_holo"
-        android:fastScrollEnabled="true" />
+            android:background="@drawable/abs__ab_solid_shadow_holo" />
+    </RelativeLayout>
 
 </LinearLayout>
