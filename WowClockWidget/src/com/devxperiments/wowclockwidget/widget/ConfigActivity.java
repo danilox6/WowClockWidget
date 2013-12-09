@@ -191,7 +191,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		.putInt(appWidgetId + ClockManager.DIAL_INDEX_PREF, selectedClock.getCurrentDialIndex())
 		.putInt(appWidgetId + ClockManager.DIAL_ALPHA_PREF, selectedClock.getDialAlpha())
 		.putBoolean(appWidgetId + ClockManager.AM_PM_PREF, selectedClock.isAmpm())
-		.putString(appWidgetId+App.APP_PKG_CLS_PREF, prefs.getString(App.APP_PKG_CLS_PREF, App.APP_NONE))
+		.putString(appWidgetId+App.APP_PKG_CLS_PREF, prefs.getString(App.APP_PKG_CLS_PREF, App.APP_CONFIG))
 		.commit();
 
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
