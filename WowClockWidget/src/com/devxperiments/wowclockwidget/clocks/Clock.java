@@ -32,7 +32,7 @@ public abstract class Clock {
 
 	protected int dialAlpha = 255;
 
-	protected boolean toBeUpdated = false; //FIXME cambia nome
+	protected boolean toBeUpdated = false;
 
 	protected boolean ampm = false;
 

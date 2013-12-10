@@ -131,7 +131,7 @@ public class ClockWidgetProvider extends AppWidgetProvider{
 			}
 		}
 
-		updateService = ConfigActivity.areFragmentToBeUpdated(); //FIXME non credo che serva qui
+		updateService = ConfigActivity.areFragmentToBeUpdated();
 
 		if(!updateService && service!=null){
 			final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

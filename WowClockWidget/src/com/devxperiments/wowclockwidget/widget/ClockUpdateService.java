@@ -50,7 +50,6 @@ public class ClockUpdateService  extends Service{
 //		Toast.makeText(this, "TICK", Toast.LENGTH_SHORT).show();
 		List<Clock> availableClocks = ClockManager.getAvailableClocks();
 		for (int widgetId : appWidgetIds) {
-			//			FIXME il container serve?
 			Clock clock = ClockManager.getClock(widgetId, prefs, availableClocks); 
 			if(clock!=null && clock.isToBeUpdated()){
 //				Log.i("UPDATE_SERVICE", "ci sono widget che devono essere aggiornati");

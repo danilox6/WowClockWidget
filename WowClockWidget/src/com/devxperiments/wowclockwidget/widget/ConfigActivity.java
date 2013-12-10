@@ -143,13 +143,18 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		appNameTextView = (TextView) findViewById(R.id.txtAppName);
 		updateAppPickerPrefView();
 
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		if(prefs.getBoolean(appWidgetId+"", false))
-			configExistingWidget(prefs);
+	
 
 		startUpdateService();
 
-//		adapter.notifyDataSetChanged(); //FIXME non dovrebbe servire
+	}
+	
+	@Override
+	protected void onResume() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		if(prefs.getBoolean(appWidgetId+"", false))
+			configExistingWidget(prefs);
+		super.onResume();
 	}
 	
 	private void configExistingWidget(SharedPreferences prefs){
@@ -206,10 +211,10 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 
 	public void onRandomColorsClick(View v) {
 		Random rnd = new Random();
-		int handsColor = rnd.nextInt(12); //FIXME
-		int dialColor = rnd.nextInt(12); //FIXME
+		int handsColor = rnd.nextInt(ColorPicker.getColorCount()); 
+		int dialColor = rnd.nextInt(ColorPicker.getColorCount());
 		while(handsColor==dialColor)
-			dialColor = rnd.nextInt(12);
+			dialColor = rnd.nextInt(ColorPicker.getColorCount());
 
 		selectedClock.setCurrentHandIndex(handsColor);
 		selectedClock.setCurrentDialIndex(dialColor);
@@ -222,16 +227,10 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 	}
 
 	public static boolean areFragmentToBeUpdated() {
-		if (fragments != null){
-
-			return true; //FIXME
-			//			for(ClockFragment f : fragments)
-			//				if (f != null && f.isToBeUpdated())
-			//					return true;
-		}
-		return false;
+		return (fragments != null);
 	}
-
+	
+	
 	public static void updateFragments() {
 		for (ClockFragment f : fragments) 
 			if (f != null)
@@ -239,9 +238,6 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 	}
 
 	private void free() {
-		//		for(ClockFragment f :fragments )
-		//			if(f!=null)
-		//				f.clear();
 		ClockManager.free();
 		fragments = null;
 
@@ -374,7 +370,7 @@ public class ConfigActivity extends SherlockFragmentActivity implements OnPageCh
 		tabView.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
 		tabView.setHeight(dp2px(48, this));
 		tabView.setBackgroundResource(R.drawable.tab_indicator_holo);
-//		style="?attr/actionBarTabStyle" //FIXME Provare così
+//		style="?attr/actionBarTabStyle"
 //		ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) tabView.getLayoutParams();
 //		//Fix margins in 2.x, by default there is -2  
 //		params.setMargins(0, 0, 0, 0);

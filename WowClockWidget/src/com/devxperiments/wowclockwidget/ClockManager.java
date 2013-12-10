@@ -232,26 +232,26 @@ public class ClockManager {
 
 			// 5
 			c = new SimpleClock(thinHands, backgrounds, preciseOverlays);
-			c.setCurrentDialIndex(3);
-			c.setCurrentHandIndex(0);
+			c.setCurrentDialIndex(9);
+			c.setCurrentHandIndex(1);
 			availableClocks.add(c);
 
 			// 6
 			c = new SimpleClock(arrowHands, backgrounds, arrowOverlays);
-			c.setCurrentDialIndex(2);
-			c.setCurrentHandIndex(4);
+			c.setCurrentDialIndex(10);
+			c.setCurrentHandIndex(2);
 			availableClocks.add(c);
 
 			// 7
 			c = new SimpleClock(arrowHands, backgrounds, dotsOverlays);
-			c.setCurrentDialIndex(0);
-			c.setCurrentHandIndex(6);
+			c.setCurrentDialIndex(6);
+			c.setCurrentHandIndex(0);
 			availableClocks.add(c);
 
 			// 8
 			c = new SimpleClock(arrowHands, backgrounds, preciseOverlays);
-			c.setCurrentDialIndex(5);
-			c.setCurrentHandIndex(0);
+			c.setCurrentDialIndex(11);
+			c.setCurrentHandIndex(6);
 			availableClocks.add(c);
 
 			// 9
@@ -270,21 +270,21 @@ public class ClockManager {
 
 			// 11
 			c = new ClockLayoutCenterDigital(digitalCutHands, backgrounds,arrowOverlays);
-			c.setCurrentDialIndex(5);
+			c.setCurrentDialIndex(10);
 			c.setCurrentHandIndex(0);
 			c.setToBeUpdated(true);
 			availableClocks.add(c);
 
 			// 12
 			c = new ClockLayoutCenterDigital(digitalCutHands, backgrounds, preciseOverlays);
-			c.setCurrentDialIndex(0);
-			c.setCurrentHandIndex(5);
+			c.setCurrentDialIndex(11);
+			c.setCurrentHandIndex(2);
 			c.setToBeUpdated(true);
 			availableClocks.add(c);
 
 			// 13
 			c = new SimpleClock(preciseFloatingHands, backgrounds, dotsOverlays);
-			c.setCurrentDialIndex(7);
+			c.setCurrentDialIndex(9);
 			c.setCurrentHandIndex(0);
 			availableClocks.add(c);
 
@@ -296,7 +296,7 @@ public class ClockManager {
 
 			// 15
 			c = new SimpleClock(preciseFloatingHands, backgrounds, preciseOverlays);
-			c.setCurrentDialIndex(4);
+			c.setCurrentDialIndex(10);
 			c.setCurrentHandIndex(0);
 			availableClocks.add(c);
 
@@ -324,6 +324,6 @@ public class ClockManager {
 	}
 
 	public static int getClockCount(){
-		return 18; //XXX
+		return 18; 
 	}
 }

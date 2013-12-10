@@ -50,5 +50,8 @@ public class ColorPicker implements OnTabChangeListener{
 		updateSelectedColor();
 	}
 
+	public static int getColorCount(){
+		return 12;
+	}
 	
 }
